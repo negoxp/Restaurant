@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "74374351888",
+    "firebase_url": "https://restaurant-92de0.firebaseio.com",
+    "project_id": "restaurant-92de0",
+    "storage_bucket": "restaurant-92de0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74374351888:android:1913f9882dcfd798",
+        "android_client_info": {
+          "package_name": "com.example.jorgeflores.restaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74374351888-kkvhq32j83en1uhpiqlecucokmfem5tg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jorgeflores.restaurant",
+            "certificate_hash": "945058dc9505dd80a5f592f174bc3ba210dd49e1"
+          }
+        },
+        {
+          "client_id": "74374351888-973b7cnl9hoo5f9v809vd4tavqv418j4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmikQbzlF3DEM4yIVI0d8Fe81-uASSQuo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "74374351888-973b7cnl9hoo5f9v809vd4tavqv418j4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
