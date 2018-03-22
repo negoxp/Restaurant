@@ -32,14 +32,14 @@ public class LoginActivity extends AppCompatActivity {
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        /*
+
         if (auth.getCurrentUser() != null) {
             Toast.makeText(getApplicationContext(), "Enter: " + auth.getCurrentUser().getDisplayName() , Toast.LENGTH_SHORT).show();
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
             finish();
         }
-        */
+
 
         // set the view now
         setContentView(R.layout.activity_login);

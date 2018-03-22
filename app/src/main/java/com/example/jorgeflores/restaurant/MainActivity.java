@@ -18,6 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private Button signupBtn;
     private TextView txtinfo;
@@ -40,6 +43,25 @@ public class MainActivity extends AppCompatActivity {
             txtinfo.setText("Hola " + auth.getCurrentUser().getEmail());
         }
 
+        database = FirebaseDatabase.getInstance();
+        DatabaseReference restaurantsRef = database.getReference("restaurants");
+
+
+        restaurantsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        //Restaurant restaurant = snapshot.getValue(Restaurant.class);
+                        //System.out.println(restaurant.getName());
+
+                        txtinfo.setText(snapshot.toString());
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+
 
         signupBtn =  (Button) findViewById(R.id.signup_btn);
         signupBtn.setOnClickListener(new View.OnClickListener() {
@@ -51,11 +73,13 @@ public class MainActivity extends AppCompatActivity {
                 //startActivity(new Intent(MainActivity.this, LoginActivity.class));
 
                 // Write a message to the database
-                database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("message");
+                //database = FirebaseDatabase.getInstance();
+                //DatabaseReference restaurantsRef = database.getReference("restaurants");
 
-                myRef.setValue("Hello, World!");
+                //txtinfo.setText("rest" + restaurantsRef.toString());
 
+                //myRef.setValue("Hello, World!");
+                /*
                 String uid = auth.getCurrentUser().getUid();
                 String email = auth.getCurrentUser().getEmail();
 
@@ -63,11 +87,11 @@ public class MainActivity extends AppCompatActivity {
 
                 user.orders.add(new Order());
                 //user.orders.add(new Order());
+                */
 
+                //txtinfo.setText("Value is: " + user.email);
 
-                txtinfo.setText("Value is: " + user.email);
-
-                myRef.child(uid).setValue(user);
+                //myRef.child(uid).setValue(user);
 
                 // Read from the database
                 /*
@@ -88,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 */
+
+                // Attach a listener to read the data at our posts reference
+
 
             }
         });
