@@ -1,16 +1,15 @@
 package com.example.jorgeflores.restaurant;
-import com.example.jorgeflores.restaurant.sampledata.*;
 
-import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-
+import com.example.jorgeflores.restaurant.model.Product;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private Button signupBtn;
@@ -37,6 +35,64 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         txtinfo = (TextView) findViewById(R.id.infoText);
+
+        database = FirebaseDatabase.getInstance();
+        DatabaseReference restaurantsRef = database.getReference("restaurants");
+
+        restaurantsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    Product product = snapshot.getValue(Product.class);
+                    Log.d("snapshot values", snapshot.toString() );
+
+                    ProductFragment fragment = new ProductFragment();
+                    Bundle arguments = new Bundle();
+                    arguments.putString( "title" , product.name);
+                    arguments.putString( "description" , product.description);
+                    arguments.putString( "photo_cover" , product.photo_cover);
+                    fragment.setArguments(arguments);
+
+                    ft.add(R.id.fragment_container, fragment,"x_");
+
+
+
+                }
+                ft.commit();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+
+        //Add fragment
+        /*
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        for (int x = 1; x < 15; x = x + 1) {
+            //Log.i("frag","x="+x);
+            RestaurantFragment fragment = new RestaurantFragment();
+            Bundle arguments = new Bundle();
+            arguments.putString( "title" , "my titlo");
+            arguments.putString( "description" , "my titlo");
+            arguments.putString( "img" , "ht");
+            fragment.setArguments(arguments);
+
+            ft.add(R.id.fragment_container, fragment,"x_"+x);
+        }
+        ft.commit();
+        */
+        //End Fragment
+
+        // Update the Button text.
+        //mButton.setText(R.string.close);
+
+        /*
 
         if (auth.getCurrentUser() != null) {
             Toast.makeText(getApplicationContext(), "Enter: " + auth.getCurrentUser().getEmail() , Toast.LENGTH_SHORT).show();
@@ -62,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-
+        */
         signupBtn =  (Button) findViewById(R.id.signup_btn);
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
