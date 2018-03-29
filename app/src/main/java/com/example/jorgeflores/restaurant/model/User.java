@@ -1,4 +1,4 @@
-package com.example.jorgeflores.restaurant.sampledata;
+package com.example.jorgeflores.restaurant.model;
 
 import java.util.ArrayList;
 import java.util.Date;

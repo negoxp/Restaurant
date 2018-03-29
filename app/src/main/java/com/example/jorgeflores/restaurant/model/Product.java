@@ -1,4 +1,4 @@
-package com.example.jorgeflores.restaurant.sampledata;
+package com.example.jorgeflores.restaurant.model;
 
 import java.util.Date;
 
@@ -8,10 +8,10 @@ import java.util.Date;
 
 public class Product {
     private String uid;
-    private String name;
-    private String description;
-    private String photo;
-    private float basePrice;
+    public String name;
+    public String description;
+    public String photo_cover;
+    public float basePrice;
     private ProductSize [] productSizes;
     private ProductAdd [] productAdds;
     private Date createdAt;
