@@ -1,5 +1,7 @@
 package com.example.jorgeflores.restaurant.model;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.Date;
 
 /**
@@ -7,7 +9,10 @@ import java.util.Date;
  */
 
 public class Product {
+    @Exclude
+
     private String uid;
+    public Integer id;
     public String name;
     public String description;
     public String photo_cover;

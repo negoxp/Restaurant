@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
                     ProductFragment fragment = new ProductFragment();
                     Bundle arguments = new Bundle();
+                    arguments.putString( "id" , Integer.toString(product.id));
                     arguments.putString( "title" , product.name);
                     arguments.putString( "description" , product.description);
                     arguments.putString( "photo_cover" , product.photo_cover);
