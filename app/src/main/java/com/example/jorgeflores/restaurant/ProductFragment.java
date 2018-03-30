@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.jorgeflores.restaurant.model.Product;
 
 
 public class ProductFragment extends Fragment {
@@ -42,7 +43,6 @@ public class ProductFragment extends Fragment {
         Glide.with(this).load(arguments.getString("photo_cover")).into(myImageView);
         id = arguments.getString("id");
 
-
         mylinearLyaout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,10 +52,7 @@ public class ProductFragment extends Fragment {
             }
         });
 
-
         return rootView;
-
-        //return inflater.inflate(R.layout.fragment_product, container, false);
     }
 
     @NonNull

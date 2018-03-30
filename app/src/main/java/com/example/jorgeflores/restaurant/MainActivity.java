@@ -23,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private Button signupBtn;
     private TextView txtinfo;
     private FirebaseAuth auth;
-    private FirebaseDatabase database;
+    public FirebaseDatabase database;
+
+    public static ArrayList<Product> products = new ArrayList<Product>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         txtinfo = (TextView) findViewById(R.id.infoText);
 
         database = FirebaseDatabase.getInstance();
-        DatabaseReference restaurantsRef = database.getReference("restaurants");
+        DatabaseReference restaurantsRef = database.getReference("products");
 
         restaurantsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -47,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     Product product = snapshot.getValue(Product.class);
+
+                    products.add(product);
+
                     Log.d("snapshot values", snapshot.toString() );
 
                     ProductFragment fragment = new ProductFragment();

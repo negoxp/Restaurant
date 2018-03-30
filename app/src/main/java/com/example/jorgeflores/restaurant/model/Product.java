@@ -2,6 +2,7 @@ package com.example.jorgeflores.restaurant.model;
 
 import com.google.firebase.database.Exclude;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -25,4 +26,5 @@ public class Product {
     public Product(){
 
     }
+
 }

@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class ProductAdd {
     private String uid;
-    private String nameAdd;
+    private String name_add;
     private String price;
     private Date createdAt;
 
