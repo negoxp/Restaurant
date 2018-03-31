@@ -1,5 +1,6 @@
 package com.example.jorgeflores.restaurant.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ public class Order {
     public float tax;
     public float total;
     public String status;
-    private OrderDetail [] orderDetails;
+    public ArrayList<OrderDetail> orderDetails;
     public Date createdAt;
     /*
     private OrderDetail [] orderDetails;
@@ -28,6 +29,8 @@ public class Order {
         this.tax=0;
         this.total=0;
         this.status="open";
+
+        this.orderDetails = new ArrayList<OrderDetail>();
     }
 
 

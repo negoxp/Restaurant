@@ -131,21 +131,33 @@ public class ProductSelectedActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //MainActivity.myorder;
+                Float tquantity = Float.parseFloat( productQuantity.getText().toString() );
 
                 OrderDetail myOrderDetail = new OrderDetail();
-
                 myOrderDetail.uid="sda";
                 myOrderDetail.productSize = new ProductSize();
-                Float tquantity = Float.parseFloat( productQuantity.getText().toString() );
                 myOrderDetail.quantity = tquantity;
-                myOrderDetail.price =0;
-                myOrderDetail.subTotal=0;
+                myOrderDetail.price =product.basePrice;
+                myOrderDetail.product_id = product.id;
+                myOrderDetail.subTotal=product.basePrice * tquantity;
 
-                /*
+                //Update order
+                MainActivity.myorder.subTotal = product.basePrice * tquantity;
+                MainActivity.myorder.tax = (float) (product.basePrice * tquantity * 0.075);
+                MainActivity.myorder.total = MainActivity.myorder.subTotal + MainActivity.myorder.tax;
+                MainActivity.myorder.orderDetails.add(myOrderDetail);
+
+                Intent i = new Intent(ProductSelectedActivity.this, CheckoutActivity.class);
+                //i.putExtra("id", id);
+                startActivity(i);
+
+
+                //user.orders.add(new Order());
+
                 database =  FirebaseDatabase.getInstance();
                 DatabaseReference mRef =  database.getReference().child("Orders").push();
-                mRef.setValue(myOrderDetail);
-                */
+                mRef.setValue(MainActivity.myorder);
+
 
 
             }

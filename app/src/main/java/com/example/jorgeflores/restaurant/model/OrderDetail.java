@@ -9,6 +9,7 @@ import java.util.Date;
 public class OrderDetail {
     public String uid;
     public ProductSize productSize;
+    public Integer product_id;
     public float quantity;
     public float price;
     public float subTotal;
