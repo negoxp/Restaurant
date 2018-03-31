@@ -14,6 +14,7 @@ public class Order {
     public float tax;
     public float total;
     public String status;
+    private OrderDetail [] orderDetails;
     public Date createdAt;
     /*
     private OrderDetail [] orderDetails;

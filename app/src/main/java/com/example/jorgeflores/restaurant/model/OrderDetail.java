@@ -7,12 +7,12 @@ import java.util.Date;
  */
 
 public class OrderDetail {
-    private String uid;
-    private ProductSize productSize;
-    private float quantity;
-    private float price;
-    private float subTotal;
-    private Date createdAt;
+    public String uid;
+    public ProductSize productSize;
+    public float quantity;
+    public float price;
+    public float subTotal;
+    public Date createdAt;
 
     //Constructor
     public OrderDetail(){
