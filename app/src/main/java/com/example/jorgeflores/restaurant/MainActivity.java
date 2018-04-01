@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
     }
 
     @Override
@@ -132,12 +131,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(this, CheckoutActivity.class);
                 this.startActivity(intent1);
                 return true;
-            /*
             case R.id.booking:
-                Intent intent1 = new Intent(this, ProductSelectedActivity.class);
-                this.startActivity(intent1);
+                Intent intent2 = new Intent(this, BookingActivity.class);
+                this.startActivity(intent2);
                 return true;
-            break;
+            /*
             case R.id.rating:
                 Intent intent1 = new Intent(this, ProductSelectedActivity.class);
                 this.startActivity(intent1);
@@ -152,6 +150,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
+
 }
