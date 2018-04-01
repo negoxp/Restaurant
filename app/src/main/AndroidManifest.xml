@@ -26,7 +26,8 @@
             android:name=".CheckoutActivity"
             android:label="Checkout"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".BookingActivity"></activity>
+        <activity android:name=".BookingActivity" />
+        <activity android:name=".RestaurantCommentsActivity"></activity>
     </application>
 
 </manifest>

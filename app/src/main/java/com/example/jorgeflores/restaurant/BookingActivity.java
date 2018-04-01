@@ -26,6 +26,8 @@ public class BookingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         final Button btnReserved = (Button) findViewById(R.id.btnReserved);
         final DatePicker datePicker2 = (DatePicker) findViewById(R.id.datePicker2);
         final TimePicker timePicker2 = (TimePicker) findViewById(R.id.timePicker2);

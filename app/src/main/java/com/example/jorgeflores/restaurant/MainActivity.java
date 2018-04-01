@@ -135,18 +135,22 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(this, BookingActivity.class);
                 this.startActivity(intent2);
                 return true;
-            /*
             case R.id.rating:
-                Intent intent1 = new Intent(this, ProductSelectedActivity.class);
-                this.startActivity(intent1);
+                Intent intent3 = new Intent(this, RestaurantCommentsActivity.class);
+                this.startActivity(intent3);
                 return true;
-            break;
+            /*
             case R.id.contactus:
                 Intent intent1 = new Intent(this, ProductSelectedActivity.class);
                 this.startActivity(intent1);
                 return true;
             break;
             */
+            case R.id.logout:
+                auth.signOut();
+                Intent intentOut = new Intent(this, LoginActivity.class);
+                this.startActivity(intentOut);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
