@@ -48,6 +48,7 @@ public class ProductSelectedActivity extends AppCompatActivity {
     private Product product;
     private Button addCart;
     private Button checkoutBtn;
+    private Button keepshoppingBtn;
 
     public Product findId(int id, ArrayList<Product> al) {
         for(Product p : al) {
@@ -68,6 +69,7 @@ public class ProductSelectedActivity extends AppCompatActivity {
         productTotal = findViewById(R.id.productTotal);
         productQuantity = findViewById(R.id.productQuantity);
         checkoutBtn = findViewById(R.id.checkoutBtn);
+        keepshoppingBtn = findViewById(R.id.keepshoppingBtn);
         addCart = findViewById(R.id.addCart);
 
         Bundle b = getIntent().getExtras();
@@ -84,9 +86,10 @@ public class ProductSelectedActivity extends AppCompatActivity {
         productTotal.setText("$ "+Float.toString(product.basePrice * tquantity ));
         Glide.with(this).load(product.photo_cover.toString()).into(productView);
 
+        LinearLayout extrasl = (LinearLayout) findViewById(R.id.extrasLayout);
+        extrasl.removeAllViews();
         for (ProductAdd productadd: MainActivity.productAdds) {
             if(product.id == productadd.products_id) {
-                LinearLayout extrasl = (LinearLayout) findViewById(R.id.extrasLayout);
                 Switch dswitch = new Switch(this);
                 dswitch.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 dswitch.setPadding(11, 11, 11, 11);
@@ -95,9 +98,9 @@ public class ProductSelectedActivity extends AppCompatActivity {
                 extrasl.addView(dswitch);
             }
         }
-
+        RadioGroup sizesGroup = (RadioGroup) findViewById(R.id.radioGroupSize);
+        sizesGroup.removeAllViews();
         for (ProductSize productsize: MainActivity.productSizes) {
-            RadioGroup sizesGroup = (RadioGroup) findViewById(R.id.radioGroupSize);
             if(product.id == productsize.products_id) {
                 RadioButton rButton = new RadioButton(this);
                 rButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -151,15 +154,16 @@ public class ProductSelectedActivity extends AppCompatActivity {
                 //i.putExtra("id", id);
                 startActivity(i);
 
-
-                //user.orders.add(new Order());
-
                 database =  FirebaseDatabase.getInstance();
                 DatabaseReference mRef =  database.getReference().child("Orders").push();
                 mRef.setValue(MainActivity.myorder);
+            }
+        });
 
-
-
+        keepshoppingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProductSelectedActivity.this, MainActivity.class));
             }
         });
 

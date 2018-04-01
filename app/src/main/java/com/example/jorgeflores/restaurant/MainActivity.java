@@ -1,10 +1,14 @@
 package com.example.jorgeflores.restaurant;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -43,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         database = FirebaseDatabase.getInstance();
-        DatabaseReference restaurantsRef = database.getReference("products");
+        DatabaseReference productsRef = database.getReference("products");
 
-        restaurantsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 FragmentManager fm = getSupportFragmentManager();
@@ -73,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        productAdds.clear();
         DatabaseReference productsExtrasRef = database.getReference("products_adds");
         productsExtrasRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -91,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        productSizes.clear();
         DatabaseReference productsSizesRef = database.getReference("products_sizes");
         productsSizesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -111,4 +117,41 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.checkout:
+                Intent intent1 = new Intent(this, CheckoutActivity.class);
+                this.startActivity(intent1);
+                return true;
+            /*
+            case R.id.booking:
+                Intent intent1 = new Intent(this, ProductSelectedActivity.class);
+                this.startActivity(intent1);
+                return true;
+            break;
+            case R.id.rating:
+                Intent intent1 = new Intent(this, ProductSelectedActivity.class);
+                this.startActivity(intent1);
+                return true;
+            break;
+            case R.id.contactus:
+                Intent intent1 = new Intent(this, ProductSelectedActivity.class);
+                this.startActivity(intent1);
+                return true;
+            break;
+            */
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
 }
