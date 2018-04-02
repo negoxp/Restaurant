@@ -21,6 +21,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.jorgeflores.restaurant.model.OrderDetail;
@@ -121,6 +123,7 @@ public class ProductSelectedActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(value)) {
                     Float tquantity = Float.parseFloat( value );
                     productTotal.setText("$ "+Float.toString(product.basePrice * tquantity ));
+
                 }
             }
             @Override
@@ -164,6 +167,33 @@ public class ProductSelectedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProductSelectedActivity.this, MainActivity.class));
+            }
+        });
+
+        sizesGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
+                View radioButton = group.findViewById(checkedId);
+                int index = group.indexOfChild(radioButton);
+
+                switch (index)
+                {
+                    case 0:
+                        product.basePrice=product.basePrice+2;
+                        productTotal.setText("$ "+Float.toString(product.basePrice ));
+                        break;
+
+                    case 1:
+                        product.basePrice=product.basePrice+1;
+                        productTotal.setText("$ "+Float.toString(product.basePrice ));
+                        break;
+                    case 2:
+                        product.basePrice=product.basePrice+0;
+                       productTotal.setText("$ "+Float.toString(product.basePrice ));
+                        break;
+
+                }
             }
         });
 
