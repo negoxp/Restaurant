@@ -1,10 +1,13 @@
 package com.example.jorgeflores.restaurant;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +17,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,6 +44,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static java.security.AccessController.getContext;
+
 public class ProductSelectedActivity extends AppCompatActivity {
     private String id;
     private FirebaseDatabase database;
@@ -51,6 +57,11 @@ public class ProductSelectedActivity extends AppCompatActivity {
     private Button addCart;
     private Button checkoutBtn;
     private Button keepshoppingBtn;
+    private Integer extraSize = 0;
+    private Integer quantity = 1;
+    private float extra =0 ;
+    private RadioButton lastBtn;
+    private Switch dswitch;
 
     public Product findId(int id, ArrayList<Product> al) {
         for(Product p : al) {
@@ -60,6 +71,7 @@ public class ProductSelectedActivity extends AppCompatActivity {
         return new Product();
     }
 
+    @SuppressLint("ResourceAsColor")
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,26 +104,43 @@ public class ProductSelectedActivity extends AppCompatActivity {
         extrasl.removeAllViews();
         for (ProductAdd productadd: MainActivity.productAdds) {
             if(product.id == productadd.products_id) {
-                Switch dswitch = new Switch(this);
+                dswitch = new Switch(this);
                 dswitch.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 dswitch.setPadding(11, 11, 11, 11);
+                dswitch.setTextColor(R.color.inputs);
                 dswitch.setText(productadd.name_add + "      $ "+Float.toString(productadd.price));
                 dswitch.setTextSize(18);
                 extrasl.addView(dswitch);
             }
         }
+
+        dswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    extra = Float.parseFloat("0.99");
+                    productTotal.setText("$ "+String.format("%.2f",(product.basePrice+extraSize+extra) * quantity ));
+                }
+            }
+        });
+
+
         RadioGroup sizesGroup = (RadioGroup) findViewById(R.id.radioGroupSize);
         sizesGroup.removeAllViews();
+
         for (ProductSize productsize: MainActivity.productSizes) {
             if(product.id == productsize.products_id) {
                 RadioButton rButton = new RadioButton(this);
                 rButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 rButton.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-                rButton.setText(productsize.size+ "      $ "+Float.toString(productsize.price));
+                rButton.setTextColor(R.color.inputs);
+                rButton.setText(productsize.size+ "      $ "+String.format("%.2f",productsize.price));
                 sizesGroup.addView(rButton);
+                lastBtn = rButton;
             }
         }
 
+        lastBtn.setChecked(true);
         // Listener
 
         productQuantity.addTextChangedListener(new TextWatcher() {
@@ -121,9 +150,8 @@ public class ProductSelectedActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String value = productQuantity.getText().toString();
                 if (!TextUtils.isEmpty(value)) {
-                    Float tquantity = Float.parseFloat( value );
-                    productTotal.setText("$ "+Float.toString(product.basePrice * tquantity ));
-
+                    quantity = Integer.parseInt(value);
+                    productTotal.setText("$ "+String.format("%.2f",(product.basePrice+extraSize+extra) * quantity ));
                 }
             }
             @Override
@@ -137,29 +165,30 @@ public class ProductSelectedActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //MainActivity.myorder;
-                Float tquantity = Float.parseFloat( productQuantity.getText().toString() );
-
                 OrderDetail myOrderDetail = new OrderDetail();
+                //todo random number id
                 myOrderDetail.uid="sda";
                 myOrderDetail.productSize = new ProductSize();
-                myOrderDetail.quantity = tquantity;
-                myOrderDetail.price =product.basePrice;
+                myOrderDetail.quantity = quantity;
+                myOrderDetail.price =(product.basePrice + extraSize + extra);
                 myOrderDetail.product_id = product.id;
-                myOrderDetail.subTotal=product.basePrice * tquantity;
+                myOrderDetail.subTotal=myOrderDetail.price * quantity;
 
                 //Update order
-                MainActivity.myorder.subTotal = product.basePrice * tquantity;
-                MainActivity.myorder.tax = (float) (product.basePrice * tquantity * 0.075);
-                MainActivity.myorder.total = MainActivity.myorder.subTotal + MainActivity.myorder.tax;
+                /*
+                MainActivity.myorder.subTotal = myOrderDetail.subTotal;
+                MainActivity.myorder.tax = (float) (myOrderDetail.subTotal * 0.075);
+                MainActivity.myorder.total = myOrderDetail.subTotal + MainActivity.myorder.tax;
+                */
                 MainActivity.myorder.orderDetails.add(myOrderDetail);
 
                 Intent i = new Intent(ProductSelectedActivity.this, CheckoutActivity.class);
                 //i.putExtra("id", id);
                 startActivity(i);
 
-                database =  FirebaseDatabase.getInstance();
-                DatabaseReference mRef =  database.getReference().child("Orders").push();
-                mRef.setValue(MainActivity.myorder);
+                //database =  FirebaseDatabase.getInstance();
+                //DatabaseReference mRef =  database.getReference().child("Orders").push();
+                //mRef.setValue(MainActivity.myorder);
             }
         });
 
@@ -180,17 +209,20 @@ public class ProductSelectedActivity extends AppCompatActivity {
                 switch (index)
                 {
                     case 0:
-                        product.basePrice=product.basePrice+2;
-                        productTotal.setText("$ "+Float.toString(product.basePrice ));
+                        //product.basePrice=product.basePrice+2;
+                        productTotal.setText("$ "+String.format("%.2f",(product.basePrice +2+extra) * quantity));
+                        extraSize=2;
                         break;
 
                     case 1:
-                        product.basePrice=product.basePrice+1;
-                        productTotal.setText("$ "+Float.toString(product.basePrice ));
+                        //product.basePrice=product.basePrice+1;
+                        productTotal.setText("$ "+String.format("%.2f",(product.basePrice+1+extra) * quantity));
+                        extraSize=1;
                         break;
                     case 2:
-                        product.basePrice=product.basePrice+0;
-                       productTotal.setText("$ "+Float.toString(product.basePrice ));
+                        //product.basePrice=product.basePrice+0;
+                       productTotal.setText("$ "+String.format("%.2f",(product.basePrice+extra) * quantity));
+                        extraSize=0;
                         break;
 
                 }

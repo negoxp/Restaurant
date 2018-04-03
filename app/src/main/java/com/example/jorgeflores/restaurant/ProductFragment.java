@@ -32,14 +32,14 @@ public class ProductFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_product, container, false);
         final TextView myTitle = rootView.findViewById(R.id.title);
-        final TextView myDescription = rootView.findViewById(R.id.description);
+        final TextView myPrice = rootView.findViewById(R.id.price);
         final ImageView myImageView = rootView.findViewById(R.id.restaurantImage);
         final LinearLayout mylinearLyaout = rootView.findViewById(R.id.myfragment);
 
         //Set values to inputs
         Bundle arguments = getArguments();
         myTitle.setText(arguments.getString("title"));
-        myDescription.setText(arguments.getString("description"));
+        myPrice.setText(arguments.getString("basePrice"));
         Glide.with(this).load(arguments.getString("photo_cover")).into(myImageView);
         id = arguments.getString("id");
 

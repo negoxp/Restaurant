@@ -40,9 +40,13 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<ProductSize> productSizes = new ArrayList<ProductSize>();
     public static Order myorder = new Order();
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -67,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     arguments.putString( "id" , Integer.toString(product.id));
                     arguments.putString( "title" , product.name);
                     arguments.putString( "description" , product.description);
+                    arguments.putString( "basePrice" , "$ "+Float.toString(product.basePrice));
                     arguments.putString( "photo_cover" , product.photo_cover);
                     fragment.setArguments(arguments);
 

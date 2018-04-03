@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollview"
+    android:background="@drawable/fondo"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
@@ -14,6 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#bd2b7c97"
     tools:context="com.example.jorgeflores.restaurant.BookingActivity">
 
 
@@ -36,7 +38,7 @@
 
     <DatePicker
         android:id="@+id/datePicker2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:foregroundGravity="center"

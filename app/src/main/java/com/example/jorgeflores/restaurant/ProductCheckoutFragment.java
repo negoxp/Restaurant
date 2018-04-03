@@ -31,6 +31,7 @@ public class ProductCheckoutFragment extends Fragment {
         final TextView myTitle = rootView.findViewById(R.id.title);
         final TextView myDescription = rootView.findViewById(R.id.description);
         final TextView myprice = rootView.findViewById(R.id.price);
+        final TextView myQuantity = rootView.findViewById(R.id.quantity);
         final TextView mysubtotal = rootView.findViewById(R.id.subtotal);
         final ImageView myImageView = rootView.findViewById(R.id.restaurantImage);
         final LinearLayout mylinearLyaout = rootView.findViewById(R.id.myfragment);
@@ -39,6 +40,7 @@ public class ProductCheckoutFragment extends Fragment {
         Bundle arguments = getArguments();
         myTitle.setText(arguments.getString("title"));
         myDescription.setText(arguments.getString("description"));
+        myQuantity.setText(arguments.getString("quantity"));
         myprice.setText(arguments.getString("price"));
         mysubtotal.setText(arguments.getString("subTotal"));
         Glide.with(this).load(arguments.getString("photo_cover")).into(myImageView);

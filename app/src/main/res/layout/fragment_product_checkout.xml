@@ -13,7 +13,7 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/colorPrimaryDark"
-        android:background="#fdfdfd"
+        android:background="#c6ffffff"
         android:orientation="horizontal">
 
 
@@ -56,29 +56,41 @@
 
                 <TextView
                     android:id="@+id/description"
-                    android:layout_width="119dp"
+                    android:layout_width="78dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16dp"
-                    android:layout_weight="1" />
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/price"
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="18dp"
-                    android:textColor="#20d157"
-                    android:text="$ 0.0" />
+                    android:gravity="left"
+                    android:text="$ 0.0"
+                    android:textColor="#FF717372"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/quantity"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="#717372"
+                    android:textSize="18dp" />
 
                 <TextView
                     android:id="@+id/subtotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:textColor="#20d157"
                     android:layout_weight="1"
-                    android:text="$ 0.0" />
+                    android:gravity="right"
+                    android:text="$ 0.0"
+                    android:textColor="#20d157"
+                    android:textSize="18dp" />
             </LinearLayout>
 
         </LinearLayout>
