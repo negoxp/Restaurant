@@ -44,7 +44,7 @@ public class CheckoutActivity extends AppCompatActivity {
             arguments.putString( "title" , product.name);
             arguments.putString( "description" , product.description);
             arguments.putString( "price" , "$ "+Float.toString(product.basePrice));
-            arguments.putString( "quantity" , "$ "+Float.toString(orderDetail.quantity));
+            arguments.putString( "quantity" , String.format("%.0f",orderDetail.quantity));
             arguments.putString( "subTotal" , "$ "+Float.toString(orderDetail.subTotal));
             arguments.putString( "photo_cover" , product.photo_cover);
             fragment.setArguments(arguments);
