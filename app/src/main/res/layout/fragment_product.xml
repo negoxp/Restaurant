@@ -5,7 +5,6 @@
     android:id="@+id/myfragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#c6ffffff"
     android:orientation="vertical"
     tools:context="com.example.jorgeflores.restaurant.ProductFragment">
 
@@ -13,10 +12,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="73dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="#c6ffffff"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.example.jorgeflores.restaurant.RoundRectCornerImageView
             android:id="@+id/restaurantImage"
             android:layout_width="147dp"
             android:layout_height="60dp"

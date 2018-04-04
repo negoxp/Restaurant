@@ -19,7 +19,9 @@
         android:id="@+id/searchText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/inputs"
+        android:textColor="@color/input_register_hint"
+        android:hint="@string/hint_search"
+        android:textColorHint="@color/input_register_hint"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="" />

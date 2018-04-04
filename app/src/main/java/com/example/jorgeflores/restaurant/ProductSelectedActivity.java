@@ -2,19 +2,13 @@ package com.example.jorgeflores.restaurant;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -25,26 +19,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.jorgeflores.restaurant.model.OrderDetail;
 import com.example.jorgeflores.restaurant.model.Product;
 import com.example.jorgeflores.restaurant.model.ProductAdd;
 import com.example.jorgeflores.restaurant.model.ProductSize;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
-
-import static java.security.AccessController.getContext;
 
 public class ProductSelectedActivity extends AppCompatActivity {
     private String id;
@@ -70,6 +54,7 @@ public class ProductSelectedActivity extends AppCompatActivity {
         }
         return new Product();
     }
+    private AddtoCartListener onClickBtnListener = new AddtoCartListener();
 
     @SuppressLint("ResourceAsColor")
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -78,6 +63,7 @@ public class ProductSelectedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_selected);
 
+        // Var declaration
         productView = findViewById(R.id.productView);
         productPrice = findViewById(R.id.productPrice);
         productTotal = findViewById(R.id.productTotal);
@@ -86,20 +72,19 @@ public class ProductSelectedActivity extends AppCompatActivity {
         keepshoppingBtn = findViewById(R.id.keepshoppingBtn);
         addCart = findViewById(R.id.addCart);
 
+        //Recieve info from pass activity
         Bundle b = getIntent().getExtras();
         id = b.getString("id");
 
-        //final TextView myid = findViewById(R.id.productid);
-        Float tquantity = Float.parseFloat( productQuantity.getText().toString() );
-
-        database = FirebaseDatabase.getInstance();
-        DatabaseReference restaurantsRef = database.getReference("restaurants");
-
+        //Get product info
         product = findId(Integer.parseInt(id), MainActivity.products);
         productPrice.setText("$ "+Float.toString(product.basePrice));
-        productTotal.setText("$ "+Float.toString(product.basePrice * tquantity ));
+        productTotal.setText("$ "+Float.toString(product.basePrice * quantity ));
         Glide.with(this).load(product.photo_cover.toString()).into(productView);
 
+        /*
+        Product extras
+         */
         LinearLayout extrasl = (LinearLayout) findViewById(R.id.extrasLayout);
         extrasl.removeAllViews();
         for (ProductAdd productadd: MainActivity.productAdds) {
@@ -114,35 +99,28 @@ public class ProductSelectedActivity extends AppCompatActivity {
             }
         }
 
-        dswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    extra = Float.parseFloat("0.99");
-                    productTotal.setText("$ "+String.format("%.2f",(product.basePrice+extraSize+extra) * quantity ));
-                }
-            }
-        });
-
-
+        /*
+        Product Size
+         */
         RadioGroup sizesGroup = (RadioGroup) findViewById(R.id.radioGroupSize);
         sizesGroup.removeAllViews();
-
         for (ProductSize productsize: MainActivity.productSizes) {
             if(product.id == productsize.products_id) {
                 RadioButton rButton = new RadioButton(this);
                 rButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 rButton.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
                 rButton.setTextColor(R.color.inputs);
+                rButton.setTextSize(18);
                 rButton.setText(productsize.size+ "      $ "+String.format("%.2f",productsize.price));
                 sizesGroup.addView(rButton);
                 lastBtn = rButton;
             }
         }
-
         lastBtn.setChecked(true);
-        // Listener
 
+        /*
+         Listeners
+        */
         productQuantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -158,83 +136,74 @@ public class ProductSelectedActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-
-
-        addCart.setOnClickListener(new View.OnClickListener() {
+        dswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-
-                //MainActivity.myorder;
-                OrderDetail myOrderDetail = new OrderDetail();
-                //todo random number id
-                myOrderDetail.uid="sda";
-                myOrderDetail.productSize = new ProductSize();
-                myOrderDetail.quantity = quantity;
-                myOrderDetail.price =(product.basePrice + extraSize + extra);
-                myOrderDetail.product_id = product.id;
-                myOrderDetail.subTotal=myOrderDetail.price * quantity;
-
-                //Update order
-                /*
-                MainActivity.myorder.subTotal = myOrderDetail.subTotal;
-                MainActivity.myorder.tax = (float) (myOrderDetail.subTotal * 0.075);
-                MainActivity.myorder.total = myOrderDetail.subTotal + MainActivity.myorder.tax;
-                */
-                MainActivity.myorder.orderDetails.add(myOrderDetail);
-
-                Intent i = new Intent(ProductSelectedActivity.this, CheckoutActivity.class);
-                //i.putExtra("id", id);
-                startActivity(i);
-
-                //database =  FirebaseDatabase.getInstance();
-                //DatabaseReference mRef =  database.getReference().child("Orders").push();
-                //mRef.setValue(MainActivity.myorder);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            //todo - recover extras from firebase
+            if (isChecked){
+                extra = Float.parseFloat("0.99");
+                productTotal.setText("$ "+String.format("%.2f",(product.basePrice+extraSize+extra) * quantity ));
+            }else{
+                extra = Float.parseFloat("0");
+                productTotal.setText("$ "+String.format("%.2f",(product.basePrice+extraSize+extra) * quantity ));
             }
-        });
-
-        keepshoppingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProductSelectedActivity.this, MainActivity.class));
             }
         });
 
         sizesGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
-                View radioButton = group.findViewById(checkedId);
-                int index = group.indexOfChild(radioButton);
-
-                switch (index)
-                {
-                    case 0:
-                        //product.basePrice=product.basePrice+2;
-                        productTotal.setText("$ "+String.format("%.2f",(product.basePrice +2+extra) * quantity));
-                        extraSize=2;
-                        break;
-
-                    case 1:
-                        //product.basePrice=product.basePrice+1;
-                        productTotal.setText("$ "+String.format("%.2f",(product.basePrice+1+extra) * quantity));
-                        extraSize=1;
-                        break;
-                    case 2:
-                        //product.basePrice=product.basePrice+0;
-                       productTotal.setText("$ "+String.format("%.2f",(product.basePrice+extra) * quantity));
-                        extraSize=0;
-                        break;
-
-                }
+            RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
+            View radioButton = group.findViewById(checkedId);
+            int index = group.indexOfChild(radioButton);
+            //todo - recover extra size from firebase
+            switch (index)
+            {
+                case 0:
+                    extraSize=2;
+                    productTotal.setText("$ "+String.format("%.2f",(product.basePrice +extraSize+extra) * quantity));
+                    break;
+                case 1:
+                    extraSize=1;
+                    productTotal.setText("$ "+String.format("%.2f",(product.basePrice+extraSize+extra) * quantity));
+                    break;
+                case 2:
+                    extraSize=0;
+                    productTotal.setText("$ "+String.format("%.2f",(product.basePrice+extraSize+extra) * quantity));
+                    break;
+            }
             }
         });
 
+        /*
+        Buttons actions
+         */
+        addCart.setOnClickListener(onClickBtnListener);
+        checkoutBtn.setOnClickListener(onClickBtnListener);
+        keepshoppingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProductSelectedActivity.this, MainActivity.class));
+            }
+        });
+    }
 
-        //myid.setText(product.name);
+    public class AddtoCartListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            OrderDetail myOrderDetail = new OrderDetail();
+            myOrderDetail.productSize = new ProductSize();
+            myOrderDetail.quantity = quantity;
+            myOrderDetail.price =(product.basePrice + extraSize + extra);
+            myOrderDetail.product_id = product.id;
+            myOrderDetail.subTotal=myOrderDetail.price * quantity;
+            MainActivity.myorder.orderDetails.add(myOrderDetail);
 
-
-
-
+            Intent i = new Intent(ProductSelectedActivity.this, CheckoutActivity.class);
+            startActivity(i);
+        }
 
     }
+
+
 }

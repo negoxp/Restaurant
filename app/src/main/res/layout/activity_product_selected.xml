@@ -18,27 +18,27 @@
         app:srcCompat="@drawable/logoapp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/productPrice"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:paddingTop="16px"
+            android:gravity="right"
+            android:paddingTop="2px"
+            android:paddingRight="23px"
             android:text="$ 0.00"
-            android:textSize="24sp"
-            tools:textAlignment="center" />
+            android:textSize="24sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#c6ffffff"
+        android:background="#1effffff"
         android:orientation="horizontal">
 
         <EditText
@@ -83,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:background="#c6ffffff"
+        android:background="#e386c0d4"
         android:orientation="vertical">
 
     </LinearLayout>
@@ -109,7 +109,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/inputs_hits"
+        android:background="#e386c0d4"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -169,7 +169,7 @@
             android:layout_width="141dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Checkout" />
+            android:text="Add/Checkout" />
 
 
     </LinearLayout>
