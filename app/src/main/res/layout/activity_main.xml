@@ -14,7 +14,6 @@
     android:background="@drawable/fondo"
     tools:context="com.example.jorgeflores.restaurant.MainActivity">
 
-
     <EditText
         android:id="@+id/searchText"
         android:layout_width="match_parent"
@@ -26,6 +25,14 @@
         android:inputType="textPersonName"
         android:text="" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="20dp"
+        android:visibility="visible" />
+
 
     <LinearLayout
         android:id="@+id/fragment_container"
@@ -34,5 +41,7 @@
         android:orientation="vertical" />
 
 
+
 </LinearLayout>
+
 </ScrollView>

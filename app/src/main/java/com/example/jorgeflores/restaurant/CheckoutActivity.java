@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jorgeflores.restaurant.model.Order;
 import com.example.jorgeflores.restaurant.model.OrderDetail;
@@ -114,14 +115,14 @@ public class CheckoutActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 MainActivity.myorder.status="Ordered";
-
+                /*
                 database =  FirebaseDatabase.getInstance();
                 DatabaseReference mRef =  database.getReference().child("Orders").push();
                 mRef.setValue(MainActivity.myorder);
-
                 MainActivity.myorder = new Order();
+                */
 
-                Intent i = new Intent(CheckoutActivity.this, ConfirmationActivity.class);
+                Intent i = new Intent(CheckoutActivity.this, FinalizeActivity.class);
                 startActivity(i);
             }
         });

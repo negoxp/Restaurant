@@ -1,7 +1,5 @@
 package com.example.jorgeflores.restaurant;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,9 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.SearchView;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.example.jorgeflores.restaurant.model.Order;
 import com.example.jorgeflores.restaurant.model.Product;
@@ -30,9 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private Button signupBtn;
-    private TextView txtinfo;
     private FirebaseAuth auth;
+    private ProgressBar progressBar;
     public FirebaseDatabase database;
 
     public static ArrayList<Product> products = new ArrayList<Product>();
@@ -44,18 +39,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
         //todo validate auth
         setContentView(R.layout.activity_main);
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         database = FirebaseDatabase.getInstance();
         DatabaseReference productsRef = database.getReference("products");
 
         productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                progressBar.setVisibility(View.VISIBLE);
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -76,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 ft.commit();
+                progressBar.setVisibility(View.GONE);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -153,10 +150,15 @@ public class MainActivity extends AppCompatActivity {
             break;
             */
             case R.id.logout:
+                Intent intentOut = new Intent(this, FinalizeActivity.class);
+                this.startActivity(intentOut);
+                return true;
+                /*
                 auth.signOut();
                 Intent intentOut = new Intent(this, LoginActivity.class);
                 this.startActivity(intentOut);
                 return true;
+                */
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jorgeflores.restaurant.FinalizeActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_card"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:background="@drawable/ic_card_bg"
+        android:padding="@dimen/activity_horizontal_margin"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:layout_width="@dimen/chip_width"
+                android:layout_height="@dimen/chip_height"
+                android:layout_marginBottom="@dimen/items_inbetween"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_chip" />
+
+            <TextView
+                android:id="@+id/tv_card_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="@string/card_number_sample"
+                android:textColor="@color/card_text_color"
+                android:textSize="@dimen/header_text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_cvv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/items_inbetween_small"
+                    android:text="@string/card_validity_label"
+                    android:textColor="@color/card_text_color"
+                    android:textSize="@dimen/xsmall_text" />
+
+                <TextView
+                    android:id="@+id/tv_validity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/card_validity_sample"
+                    android:textColor="@color/card_text_color"
+                    android:textSize="@dimen/xsmall_text" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_member_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="text"
+                android:textAllCaps="true"
+                android:textColor="@color/card_text_color"
+                android:textSize="@dimen/medium_text" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:paddingTop="210dp"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="2dp">
+
+        <EditText
+            android:id="@+id/mycard_number"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:hint="Card Number"
+            android:inputType="number"
+            tools:layout_editor_absoluteX="18dp"
+            tools:layout_editor_absoluteY="209dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/myvalidity"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="MM/YY"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="266dp" />
+
+            <EditText
+                android:id="@+id/mycvv"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="CVV"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="205dp"
+                tools:layout_editor_absoluteY="266dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingTop="320dp"
+        tools:layout_editor_absoluteY="511dp">
+
+        <EditText
+            android:id="@+id/myaddress"
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:ems="10"
+            android:hint="Address"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="19dp"
+            tools:layout_editor_absoluteY="364dp" />
+
+        <EditText
+            android:id="@+id/mycity"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:hint="City"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="425dp" />
+
+        <EditText
+            android:id="@+id/myzip"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:hint="ZIP"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="205dp"
+            tools:layout_editor_absoluteY="425dp" />
+
+        <Button
+            android:id="@+id/paybtn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Process Payment"
+            tools:layout_editor_absoluteX="17dp"
+            tools:layout_editor_absoluteY="472dp" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -17,7 +17,6 @@
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -28,7 +27,8 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name=".BookingActivity" />
         <activity android:name=".RestaurantCommentsActivity" />
-        <activity android:name=".ConfirmationActivity"></activity>
+        <activity android:name=".ConfirmationActivity" />
+        <activity android:name=".FinalizeActivity"></activity>
     </application>
 
 </manifest>

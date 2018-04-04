@@ -15,6 +15,14 @@ public class Order {
     public float tax;
     public float total;
     public String status;
+
+    public String cardnumber;
+    public String validity;
+    public String cvv;
+    public String address;
+    public String city;
+    public String zip;
+
     public ArrayList<OrderDetail> orderDetails;
     public Date createdAt;
     /*
