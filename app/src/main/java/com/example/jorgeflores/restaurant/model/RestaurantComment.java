@@ -1,6 +1,7 @@
 package com.example.jorgeflores.restaurant.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by jorgeflores on 2018-03-15.
@@ -8,13 +9,13 @@ import java.util.Date;
 
 public class RestaurantComment {
     private String uid;
-    private String comment;
-    private String rate;
-    private User user;
+    public String comment;
+    public Float rate;
+    public String user;
     private Date createdAt;
 
     //Constructor
     public RestaurantComment(){
-
+        this.uid = String.valueOf(UUID.randomUUID());
     }
 }
