@@ -6,23 +6,23 @@
     android:id="@+id/scrollview"
     android:background="@drawable/fondo"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="fill_parent">
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="#bd2b7c97"
+    android:background="#bd19708c"
     tools:context="com.example.jorgeflores.restaurant.BookingActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/input_register_hint"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:orientation="horizontal">
 
         <TextView
@@ -30,9 +30,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingTop="16px"
+            android:padding="8px"
             android:text="Booking a table"
-            android:textSize="24sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
             tools:textAlignment="center" />
     </LinearLayout>
 
@@ -40,43 +41,64 @@
         android:id="@+id/datePicker2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
         android:layout_weight="1"
+        android:animateLayoutChanges="true"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:backgroundTintMode="src_over"
+        android:datePickerMode="spinner"
+        android:dayOfWeekBackground="@color/bg_main"
+        android:dayOfWeekTextAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:defaultFocusHighlightEnabled="false"
+        android:drawingCacheQuality="auto"
         android:foregroundGravity="center"
-        android:scaleX="1"
-        android:scaleY="1" />
+        android:textSize="18sp" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <TimePicker
         android:id="@+id/timePicker2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleX="1"
-        android:scaleY="1" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="18dp"
+        android:timePickerMode="spinner" />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/txt2"
-        android:layout_alignRight="@+id/txt2"
-        android:layout_below="@+id/timePicker"
-        android:layout_marginTop="38dp"
-        android:text="Number of Guests"
-        android:textSize="18sp" />
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/numberOfGuests"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number of Guests"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/numberOfGuests"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:inputType="textPersonName"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnReserved"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+android:background="#1d79bf"
+        android:textColor="#ffffff"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="38dp"
-        android:text="Reserve Table" />
-
+        android:layout_gravity="center"
+        android:text="Reserve Table"
+        android:textAlignment="center" />
 </LinearLayout>
+
 </ScrollView>
