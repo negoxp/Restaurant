@@ -30,6 +30,7 @@
         <activity android:name=".RestaurantCommentsActivity" />
         <activity android:name=".ConfirmationActivity"></activity>
         <activity android:name=".FinalizeActivity"></activity>
+        <activity android:name=".AboutUsActivity"></activity>
     </application>
 
 </manifest>

@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -25,6 +28,7 @@ import com.example.jorgeflores.restaurant.model.OrderDetail;
 import com.example.jorgeflores.restaurant.model.Product;
 import com.example.jorgeflores.restaurant.model.ProductAdd;
 import com.example.jorgeflores.restaurant.model.ProductSize;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -46,6 +50,7 @@ public class ProductSelectedActivity extends AppCompatActivity {
     private float extra =0 ;
     private RadioButton lastBtn;
     private Switch dswitch;
+    private FirebaseAuth auth;
 
     public Product findId(int id, ArrayList<Product> al) {
         for(Product p : al) {
@@ -62,6 +67,9 @@ public class ProductSelectedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_selected);
+
+        auth = FirebaseAuth.getInstance();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Var declaration
         productView = findViewById(R.id.productView);
@@ -205,5 +213,47 @@ public class ProductSelectedActivity extends AppCompatActivity {
 
     }
 
+    /*
+    Menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return(super.onCreateOptionsMenu(menu));
+        //return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logout:
+                auth.signOut();
+                Intent intentOut = new Intent(this, LoginActivity.class);
+                this.startActivity(intentOut);
+            case R.id.checkout:
+                Intent intent1 = new Intent(this, CheckoutActivity.class);
+                this.startActivity(intent1);
+                return true;
+            case R.id.booking:
+                Intent intent2 = new Intent(this, BookingActivity.class);
+                this.startActivity(intent2);
+                return true;
+            case R.id.rating:
+                Intent intent3 = new Intent(this, RestaurantCommentsActivity.class);
+                this.startActivity(intent3);
+                return true;
+            case R.id.contactus:
+                Intent intent4 = new Intent(this, AboutUsActivity.class);
+                this.startActivity(intent4);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /*
+    END Menu
+     */
 
 }

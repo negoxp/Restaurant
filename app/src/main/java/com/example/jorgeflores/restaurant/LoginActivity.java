@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
-            Toast.makeText(getApplicationContext(), "Enter: " + auth.getCurrentUser().getDisplayName() , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Welcome " + auth.getCurrentUser().getDisplayName() , Toast.LENGTH_SHORT).show();
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
